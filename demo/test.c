@@ -625,7 +625,7 @@ LBL_ERR:
 
 }
 
-#if defined(__STDC_IEC_559__) || defined(__GCC_IEC_559)
+#if defined(MP_HAS_SET_DOUBLE)
 static int test_mp_set_double(void)
 {
    int i;
@@ -2460,7 +2460,7 @@ static int unit_tests(int argc, char **argv)
       T1(mp_read_write_sbin, MP_TO_SBIN),
       T1(mp_reduce_2k, MP_REDUCE_2K),
       T1(mp_reduce_2k_l, MP_REDUCE_2K_L),
-#if defined(__STDC_IEC_559__) || defined(__GCC_IEC_559)
+#if defined(MP_HAS_SET_DOUBLE)
       T1(mp_set_double, MP_SET_DOUBLE),
 #endif
       T1(mp_signed_rsh, MP_SIGNED_RSH),
