@@ -626,29 +626,34 @@ LBL_ERR:
 }
 
 #if defined(MP_HAS_SET_DOUBLE)
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4723) /* potential divide by 0 */
+#endif
 static int test_mp_set_double(void)
 {
    int i;
+   double dbl_zero = 0.0;
 
    mp_int a, b;
    if (mp_init_multi(&a, &b, NULL)!= MP_OKAY) {
       return EXIT_FAILURE;
    }
-
    /* test mp_get_double/mp_set_double */
-   if (mp_set_double(&a, +1.0/0.0) != MP_VAL) {
+   if (mp_set_double(&a, +1.0/dbl_zero) != MP_VAL) {
       printf("\nmp_set_double should return MP_VAL for +inf");
       goto LBL_ERR;
    }
-   if (mp_set_double(&a, -1.0/0.0) != MP_VAL) {
+   if (mp_set_double(&a, -1.0/dbl_zero) != MP_VAL) {
       printf("\nmp_set_double should return MP_VAL for -inf");
       goto LBL_ERR;
    }
-   if (mp_set_double(&a, +0.0/0.0) != MP_VAL) {
+   if (mp_set_double(&a, +0.0/dbl_zero) != MP_VAL) {
       printf("\nmp_set_double should return MP_VAL for NaN");
       goto LBL_ERR;
    }
-   if (mp_set_double(&a, -0.0/0.0) != MP_VAL) {
+   if (mp_set_double(&a, -0.0/dbl_zero) != MP_VAL) {
       printf("\nmp_set_double should return MP_VAL for NaN");
       goto LBL_ERR;
    }
@@ -681,6 +686,9 @@ LBL_ERR:
    return EXIT_FAILURE;
 
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 
 static int test_mp_get_u32(void)
