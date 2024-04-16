@@ -1,3 +1,8 @@
+Apr 16th, 2024
+v1.3.1
+       -- Backport #476
+       -- Deprecate (& remove) `ENABLE_CCACHE` Option for CMake (c.f. #577)
+
 Mar 27th, 2024
 v1.3.0
        -- Deprecate more APIs which are replaced in develop (PR #572)
